@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for a Loan - Mndeni Easy Loans</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #004d40;
+            --secondary-gold: #ffc107;
+            --light-bg: #f7f9f9;
+            --dark-text: #1a202c;
+            --light-text: #4a5568;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        .header {
+            background: var(--white);
+            padding: 1rem 5%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-gold);
+        }
+        
+        .main-content {
+            padding: 4rem 5%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .application-wrapper {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .application-header {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        .application-header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .application-header p { font-size: 1.1rem; opacity: 0.9; }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            background-color: #f0f2f5;
+            position: relative;
+        }
+
+        .progress-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #cbd5e0;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            border: 3px solid #f0f2f5;
+        }
+        
+        .step-label {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--light-text);
+            transition: all 0.4s ease;
+        }
+
+        .progress-line {
+            position: absolute;
+            height: 4px;
+            background: #cbd5e0;
+            top: 33px;
+            left: 10%;
+            width: 80%;
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--secondary-gold);
+            transition: width 0.4s ease;
+        }
+        
+        .progress-step.active .step-icon { background: var(--secondary-gold); transform: scale(1.1); border-color: var(--white); }
+        .progress-step.active .step-label { color: var(--primary-green); }
+        .progress-step.completed .step-icon { background: var(--primary-green); }
+
+        .application-body {
+            padding: 2rem 3rem;
+        }
+        
+        .form-step { display: none; }
+        .form-step.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-green);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--light-bg);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .form-row .form-group { flex: 1; }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary { background-color: #e2e8f0; color: var(--light-text); }
+        .btn-gold { background-color: var(--secondary-gold); color: var(--primary-green); }
+        .btn-green { background-color: var(--primary-green); color: var(--white); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .checkbox-label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+
+        /* Additional Sections */
+        .info-section {
+            margin-top: 4rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .info-card, .faq-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .info-card h3 { color: var(--primary-green); margin-bottom: 1rem; }
+        .info-card ul { list-style: none; padding-left: 0; }
+        .info-card ul li { margin-bottom: 0.5rem; display: flex; align-items: flex-start; }
+        .info-card ul li i { color: var(--primary-green); margin-right: 10px; margin-top: 5px; }
+
+        /* Success Popup */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .popup-overlay.show { display: flex; }
+        .popup-container { background: var(--white); padding: 2.5rem; border-radius: 20px; text-align: center; max-width: 450px; width: 90%; animation: fadeIn 0.3s ease; }
+        .popup-icon { font-size: 4rem; color: var(--primary-green); margin-bottom: 1.5rem; }
+        .popup-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+        .popup-message, .popup-reference { color: var(--light-text); margin-bottom: 1.5rem; }
+        .popup-reference strong { color: var(--dark-text); font-size: 1.1rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row { flex-direction: column; gap: 0; }
+            .application-body { padding: 2rem 1.5rem; }
+            .step-label { display: none; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="logo">Mndeni<span>.</span></a>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="application-wrapper">
+                <div class="application-header">
+                    <h1>Your Loan Application</h1>
+                    <p>A few simple steps to secure your financial future.</p>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-line"><div class="progress-line-fill"></div></div>
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <div class="step-label">Loan Details</div>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-icon"><i class="fas fa-user"></i></div>
+                        <div class="step-label">Personal Info</div>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="step-label">Financials</div>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-icon"><i class="fas fa-check"></i></div>
+                        <div class="step-label">Submit</div>
+                    </div>
+                </div>
+
+                <div class="application-body">
+                    <form id="loanApplicationForm" novalidate>
+                        <!-- Step 1: Loan Details -->
+                        <div class="form-step active" data-step="1">
+                            <h2 class="form-section-title">Step 1: Loan Information</h2>
+                            <div class="form-group">
+                                <label for="loanType">What type of loan do you need?*</label>
+                                <select id="loanType" name="loanType" required>
+                                    <option value="">Select a loan type...</option>
+                                    <option value="Personal Loan">Personal Loan</option>
+                                    <option value="Debt Consolidation">Debt Consolidation</option>
+                                    <option value="Business Start-Up">Business Start-Up</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="loanAmount">How much do you need? (R)*</label>
+                                <input type="number" id="loanAmount" name="loanAmount" min="1000" max="250000" placeholder="e.g., 50000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loanTerm">Repayment Term*</label>
+                                <select id="loanTerm" name="loanTerm" required>
+                                    <option value="">Select a term...</option>
+                                    <option value="12">12 Months</option>
+                                    <option value="24">24 Months</option>
+                                    <option value="36">36 Months</option>
+                                    <option value="48">48 Months</option>
+                                    <option value="60">60 Months</option>
+                                </select>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-secondary" disabled>Previous</button>
+                                <button type="button" class="btn btn-gold next-btn">Next Step</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Personal Info -->
+                        <div class="form-step" data-step="2">
+                            <h2 class="form-section-title">Step 2: Personal Details</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name*</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name*</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idNumber">South African ID Number*</label>
+                                <input type="text" id="idNumber" name="idNumber" maxlength="13" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address*</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Mobile Number*</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                                <button type="button" class="btn btn-gold next-btn">Next Step</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Employment Info -->
+                        <div class="form-step" data-step="3">
+                             <h2 class="form-section-title">Step 3: Financial & Employment</h2>
+                            <div class="form-group">
+                                <label for="employmentStatus">Employment Status*</label>
+                                <select id="employmentStatus" name="employmentStatus" required>
+                                    <option value="">Select status...</option>
+                                    <option value="full-time">Full-time Employed</option>
+                                    <option value="part-time">Part-time Employed</option>
+                                    <option value="self-employed">Self-Employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlyIncome">Net Monthly Income (R)*</label>
+                                <input type="number" id="monthlyIncome" name="monthlyIncome" placeholder="Your income after deductions" required>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                                <button type="button" class="btn btn-gold next-btn">Final Step</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4: Submit -->
+                        <div class="form-step" data-step="4">
+                             <h2 class="form-section-title">Step 4: Final Confirmation</h2>
+                             <p style="text-align:center; color: var(--light-text); margin-bottom: 2rem;">Please review and agree to the terms to complete your application.</p>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
+                                    I agree to the <a href="#" target="_blank">Terms and Conditions</a> and confirm all information is accurate.
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="creditCheck" name="creditCheck" required>
+                                    I authorize Mndeni Easy Loans to perform a credit check.
+                                </label>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                                <button type="submit" class="btn btn-green" id="submitBtn">Submit Application</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Why Apply With Mndeni?</h3>
+                        <ul>
+                            <li><i class="fas fa-check"></i><strong>Family-Focused:</strong> We understand your needs because we see you as part of our family.</li>
+                            <li><i class="fas fa-check"></i><strong>Transparent Process:</strong> No jargon, no hidden fees. We explain everything clearly.</li>
+                            <li><i class="fas fa-check"></i><strong>Quick & Easy:</strong> Our online application is designed to be fast and straightforward.</li>
+                            <li><i class="fas fa-check"></i><strong>NCR Registered:</strong> Apply with confidence knowing we are a registered and responsible credit provider.</li>
+                        </ul>
+                    </div>
+                    <div class="faq-card">
+                        <h3>Application FAQ</h3>
+                        <ul>
+                            <li><i class="fas fa-question-circle"></i><strong>What documents will I need later?</strong> You may need a copy of your ID and latest payslip or bank statement. We'll let you know if these are required.</li>
+                            <li><i class="fas fa-question-circle"></i><strong>Is my information secure?</strong> Absolutely. We use industry-standard encryption to protect your data at all times.</li>
+                            <li><i class="fas fa-question-circle"></i><strong>How soon will I get a response?</strong> We pride ourselves on quick decisions, often within a few business hours.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="popup-overlay" id="successPopup">
+        <div class="popup-container">
+            <div class="popup-icon"><i class="fas fa-check-circle"></i></div>
+            <h2 class="popup-title">Application Received!</h2>
+            <p class="popup-message">Thank you! Your application has been successfully submitted. Our team will review it and get back to you shortly.</p>
+            <p class="popup-reference">Your Reference Number: <strong id="popupReferenceNumber"></strong></p>
+            <a href="profile.html" class="btn btn-green">Track My Application</a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextBtns = document.querySelectorAll('.next-btn');
+            const prevBtns = document.querySelectorAll('.prev-btn');
+            const formSteps = document.querySelectorAll('.form-step');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressFill = document.querySelector('.progress-line-fill');
+            const form = document.getElementById('loanApplicationForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            let currentStep = 1;
+
+            const updateProgress = () => {
+                progressSteps.forEach((step, index) => {
+                    const stepNumber = index + 1;
+                    step.classList.remove('active', 'completed');
+                    if (stepNumber < currentStep) {
+                        step.classList.add('completed');
+                    } else if (stepNumber === currentStep) {
+                        step.classList.add('active');
+                    }
+                });
+                progressFill.style.width = `${((currentStep - 1) / (progressSteps.length - 1)) * 100}%`;
+            };
+
+            const validateStep = (step) => {
+                const stepElement = document.querySelector(`.form-step[data-step="${step}"]`);
+                const inputs = stepElement.querySelectorAll('[required]');
+                let isValid = true;
+                inputs.forEach(input => {
+                    if ((input.type === 'checkbox' && !input.checked) || (input.type !== 'checkbox' && !input.value)) {
+                        isValid = false;
+                        input.style.borderColor = '#e53e3e';
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+                return isValid;
+            };
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (validateStep(currentStep)) {
+                        if (currentStep < formSteps.length) {
+                            formSteps[currentStep - 1].classList.remove('active');
+                            currentStep++;
+                            formSteps[currentStep - 1].classList.add('active');
+                            updateProgress();
+                        }
+                    } else {
+                        alert('Please fill in all required fields.');
+                    }
+                });
+            });
+
+            prevBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (currentStep > 1) {
+                        formSteps[currentStep - 1].classList.remove('active');
+                        currentStep--;
+                        formSteps[currentStep - 1].classList.add('active');
+                        updateProgress();
+                    }
+                });
+            });
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                if (!validateStep(currentStep)) {
+                    alert('Please agree to the terms to submit.');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+                const formData = new FormData(this);
+                const referenceNumber = `MEL-${Date.now().toString().slice(-6)}`;
+                
+                // Construct the data object for Baserow
+                const data = {
+                    "field_4501396": `${formData.get('firstName')} ${formData.get('lastName')}`,
+                    "field_4501398": parseInt(formData.get('loanAmount')),
+                    "field_4502368": formData.get('email'),
+                    "field_4502370": formData.get('phone'),
+                    "field_4502375": { value: formData.get('employmentStatus') },
+                    "field_4502376": parseInt(formData.get('monthlyIncome')),
+                    "field_4502384": { value: formData.get('loanType') },
+                    "field_4502389": parseInt(formData.get('loanTerm')),
+                    "field_4502424": formData.get('idNumber')
+                };
+
+                try {
+                    // NOTE: Replace with your actual Baserow API endpoint and Key
+                    const response = await fetch('https://api.baserow.io/api/database/rows/table/YOUR_TABLE_ID/?user_field_names=true', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Token YOUR_API_KEY',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (!response.ok) throw new Error('Network response was not ok.');
+                    
+                    document.getElementById('popupReferenceNumber').textContent = referenceNumber;
+                    document.getElementById('successPopup').classList.add('show');
+
+                } catch (error) {
+                    console.error('Submission Error:', error);
+                    alert('There was an error submitting your application. This is a demo. No data was sent.');
+                    // For demo purposes, show success anyway
+                    document.getElementById('popupReferenceNumber').textContent = referenceNumber;
+                    document.getElementById('successPopup').classList.add('show');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
