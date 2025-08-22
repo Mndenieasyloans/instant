@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mndeni Easy Loans</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #004d40;
+            --secondary-gold: #ffc107;
+            --light-bg: #f7f9f9;
+            --dark-text: #1a202c;
+            --light-text: #4a5568;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--light-bg); color: var(--dark-text); }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-green); text-decoration: none; }
+        .logo span { color: var(--secondary-gold); }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary-green);
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+        }
+        .page-header h1 { font-size: 2.8rem; }
+        .page-header p { font-size: 1.1rem; opacity: 0.9; }
+
+        .section { padding: 80px 5%; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-card {
+            background: var(--white);
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            border-bottom: 4px solid var(--secondary-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .contact-card .icon { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 1rem; }
+        .contact-card h3 { margin-bottom: 1rem; font-size: 1.3rem; }
+        .contact-card p, .contact-card a { color: var(--light-text); text-decoration: none; }
+        .contact-card a:hover { color: var(--primary-green); text-decoration: underline; }
+
+        /* Contact Main Section */
+        .contact-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .contact-form-wrapper {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .contact-form-wrapper h2 { font-size: 2rem; color: var(--primary-green); margin-bottom: 2rem; }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--light-bg);
+        }
+        .form-group textarea { height: 120px; resize: vertical; }
+
+        .btn-green {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .map-wrapper { 
+            height: 500px; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            background: var(--border-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: var(--light-text); 
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer { background-color: var(--dark-text); color: var(--white); padding: 60px 5% 20px; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid var(--light-text); font-size: 0.9rem; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-main { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="logo">Mndeni<span>.</span></a>
+        <!-- Full navigation menu can be added here if needed -->
+    </header>
+
+    <main>
+        <section class="page-header">
+            <h1>We're Here For Your Family</h1>
+            <p>Have a question or need support? Reach out to us anytime.</p>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3>Our Head Office</h3>
+                        <p>123 Commerce Rd, Sandton,<br>Johannesburg, 2196, South Africa</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                        <h3>WhatsApp Us</h3>
+                        <p>For quick questions and support, message us directly.</p>
+                        <a href="https://wa.me/27630184373" target="_blank">+27 63 018 4373</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="icon"><i class="fas fa-envelope-open-text"></i></div>
+                        <h3>Send an Email</h3>
+                        <p>For applications and formal queries, please email us.</p>
+                        <a href="mailto:support@mndeniloans.co.za">support@mndeniloans.co.za</a>
+                    </div>
+                </div>
+
+                <div class="contact-main">
+                    <div class="contact-form-wrapper">
+                        <h2>Send us a Direct Message</h2>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" name="subject">
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Application Status">Application Status</option>
+                                    <option value="Support Request">Support Request</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-green">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="map-wrapper">
+                        <div>
+                            <i class="fas fa-map" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+                            <p>Our Location</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                &copy; 2025 Mndeni Easy Loans (PTY) LTD. All Rights Reserved. <br>
+                NCR Registration No.: NCRCP19616 | Legal Registration No.: 2024/157205/07.
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
