@@ -211,9 +211,9 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-right: 15px;
+            flex-shrink: 0;
         }
         .review-name { font-weight: 700; }
-        .review-date { font-size: 0.8rem; color: var(--light-text); }
 
         .review-stars { color: var(--secondary-gold); margin-bottom: 1rem; }
         .review-body { color: var(--light-text); flex-grow: 1; margin-bottom: 1.5rem; line-height: 1.7; }
@@ -318,7 +318,7 @@
                 <div class="stars">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                 </div>
-                <div class="score">based on 70+ reviews</div>
+                <div class="score">based on 60+ reviews</div>
             </div>
         </section>
 
@@ -389,23 +389,17 @@
                 mobileMenuCloseBtn.addEventListener('click', () => { mobileNav.classList.remove('open'); });
             }
 
-            const now = new Date();
-            
-            // --- REVIEWS DATA ---
-            const recentReviews = [
-                { name: "Jabulani Mthembu", date: new Date(now.getTime() - 3 * 60000), amount: 2500000, text: "Expanding my transport business felt like an impossible dream. Mndeni provided a R2.5 million loan with terms that made sense for my cash flow. The process was professional, and their team truly partners with you. My fleet has doubled, and my business is soaring." },
-                { name: "Anel Botha", date: new Date(now.getTime() - 12 * 60000), amount: 450000, text: "Ek moes my huis aanpas vir my bejaarde ouers. Die R450,000 lening het dit moontlik gemaak om alles rolstoelvriendelik te maak. Mndeni se deernis en spoedige diens het 'n moeilike tyd soveel makliker gemaak. Hulle is regtig mense-mense." },
-                { name: "Zanele Williams", date: new Date(now.getTime() - 25 * 60000), amount: 800000, text: "Securing a R800,000 loan to buy into a franchise was the best decision for my career. The Mndeni business team guided me through every step, ensuring I understood the commitment. I am now a proud business owner, thanks to their support." },
-                { name: "Thabo Pienaar", date: new Date(now.getTime() - 1 * 3600000), amount: 1200000, text: "Our community farming project needed urgent funding for a borehole and irrigation system. Mndeni approved our R1.2 million loan, understanding the importance of food security. They are investing in communities, not just individuals." },
-                { name: "Siobhan Reddy", date: new Date(now.getTime() - 2 * 3600000), amount: 1950000, text: "As a doctor opening my own practice, I needed significant capital. Mndeni provided a R1,950,000 loan with a structured plan that aligned with my projected income. Their professional financial advice was invaluable." },
-                { name: "Chris van Jaarsveld", date: new Date(now.getTime() - 3 * 3600000), amount: 3000000, text: "Purchasing a small commercial property was a huge step. Mndeni handled my R3 million application with incredible expertise. Their commercial loan division is world-class. I felt supported and confident throughout the entire process." },
-                { name: "Lindiwe Khumalo", date: new Date(now.getTime() - 5 * 3600000), amount: 75000, text: "I needed to cover the costs for my son's international sports tour. The R75,000 personal loan was approved so quickly, we didn't miss any deadlines. Mndeni really came through for our family." },
-                { name: "David Nkosi", date: new Date(now.getTime() - 8 * 3600000), amount: 120000, text: "My daughter’s wedding was approaching, and we needed extra funds. The R120,000 loan from Mndeni was a blessing. The process was fast, simple, and allowed us to give her the beautiful day she deserved without any financial worries." },
-                { name: "Marius Botha", date: new Date(now.getTime() - 15 * 3600000), amount: 45000, text: "Ons het 'n klein lening van R45,000 nodig gehad vir onverwagte herstelwerk aan ons huis. Die aanlyn proses was so gerieflik en die geld was binne 24 uur in ons rekening. Ek is baie beïndruk met Mndeni se doeltreffendheid." },
-                { name: "Lethabo Maake", date: new Date(now.getTime() - 22 * 3600000), amount: 25000, text: "I'm a student who needed to replace a stolen laptop urgently for my studies. Mndeni's process was quick and they offered a plan I could manage. Their understanding of my situation was amazing. It’s more than just a loan." },
-            ];
-
-            const olderReviews = [
+            const allReviewsData = [
+                { name: "Jabulani Mthembu", amount: 2500000, text: "Expanding my transport business felt like an impossible dream. Mndeni provided a R2.5 million loan with terms that made sense for my cash flow. The process was professional, and their team truly partners with you. My fleet has doubled, and my business is soaring." },
+                { name: "Anel Botha", amount: 450000, text: "Ek moes my huis aanpas vir my bejaarde ouers. Die R450,000 lening het dit moontlik gemaak om alles rolstoelvriendelik te maak. Mndeni se deernis en spoedige diens het 'n moeilike tyd soveel makliker gemaak. Hulle is regtig mense-mense." },
+                { name: "Zanele Williams", amount: 800000, text: "Securing a R800,000 loan to buy into a franchise was the best decision for my career. The Mndeni business team guided me through every step, ensuring I understood the commitment. I am now a proud business owner, thanks to their support." },
+                { name: "Thabo Pienaar", amount: 1200000, text: "Our community farming project needed urgent funding for a borehole and irrigation system. Mndeni approved our R1.2 million loan, understanding the importance of food security. They are investing in communities, not just individuals." },
+                { name: "Siobhan Reddy", amount: 1950000, text: "As a doctor opening my own practice, I needed significant capital. Mndeni provided a R1,950,000 loan with a structured plan that aligned with my projected income. Their professional financial advice was invaluable." },
+                { name: "Chris van Jaarsveld", amount: 3000000, text: "Purchasing a small commercial property was a huge step. Mndeni handled my R3 million application with incredible expertise. Their commercial loan division is world-class. I felt supported and confident throughout the entire process." },
+                { name: "Lindiwe Khumalo", amount: 75000, text: "I needed to cover the costs for my son's international sports tour. The R75,000 personal loan was approved so quickly, we didn't miss any deadlines. Mndeni really came through for our family." },
+                { name: "David Nkosi", amount: 120000, text: "My daughter’s wedding was approaching, and we needed extra funds. The R120,000 loan from Mndeni was a blessing. The process was fast, simple, and allowed us to give her the beautiful day she deserved without any financial worries." },
+                { name: "Marius Botha", amount: 45000, text: "Ons het 'n klein lening van R45,000 nodig gehad vir onverwagte herstelwerk aan ons huis. Die aanlyn proses was so gerieflik en die geld was binne 24 uur in ons rekening. Ek is baie beïndruk met Mndeni se doeltreffendheid." },
+                { name: "Lethabo Maake", amount: 25000, text: "I'm a student who needed to replace a stolen laptop urgently for my studies. Mndeni's process was quick and they offered a plan I could manage. Their understanding of my situation was amazing. It’s more than just a loan." },
                 { name: "Sipho Khumalo", amount: 25000, text: "I was in a real bind and needed cash quickly for an emergency. The team at Mndeni was incredibly understanding and processed my application faster than I ever expected. The money was in my account the very next morning. Truly a lifesaver!" },
                 { name: "Anneri van der Merwe", amount: 150000, text: "Ek moes my huis se dak regmaak voor die reën begin. Mndeni het die hele proses so maklik gemaak. Geen versteekte fooie nie en die konsultant was baie professioneel en het alles duidelik verduidelik. Baie dankie vir die uitstekende diens!" },
                 { name: "John Smith", amount: 500000, text: "Starting my own coffee shop was a lifelong dream. While banks were hesitant, Mndeni saw the potential in my business plan. Their start-up loan gave me the capital I needed to get going. I'm forever grateful for their belief in me." },
@@ -459,10 +453,7 @@
             ];
 
             const reviewsGrid = document.querySelector('.reviews-grid');
-            const newReviewForm = document.getElementById('newReviewForm');
-            const moderationMessage = document.getElementById('moderationMessage');
 
-            // --- Daily Shuffle Logic ---
             function shuffleArray(array, seed) {
                 let m = array.length, t, i;
                 const random = () => {
@@ -480,39 +471,18 @@
 
             const today = new Date();
             const dailySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-            const shuffledOlderReviews = shuffleArray(olderReviews, dailySeed);
-            const allReviews = [...recentReviews, ...shuffledOlderReviews];
+            const shuffledAllReviews = shuffleArray(allReviewsData, dailySeed);
 
-            // --- Time Formatting and Rendering Logic ---
-            function formatTimeAgo(dateString) {
-                const date = new Date(dateString);
-                const now = new Date();
-                const seconds = Math.round((now - date) / 1000);
-                const minutes = Math.round(seconds / 60);
-                const hours = Math.round(minutes / 60);
-
-                if (seconds < 60) return `just now`;
-                if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-                if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-                // Fallback for older static dates
-                return dateString;
-            }
-            
             function renderReviews() {
                 reviewsGrid.innerHTML = ''; 
-                allReviews.forEach(review => {
+                shuffledAllReviews.forEach(review => {
                     const initials = review.name.split(' ').map(n => n[0]).join('');
-                    // Check if date is a string with 'ago' or an ISO date string
-                    const isDynamic = review.date && typeof review.date === 'object';
-                    const timeAgo = isDynamic ? formatTimeAgo(review.date.toISOString()) : (review.date || 'Recently');
-                    
                     const card = `
                         <div class="review-card">
                             <div class="review-header">
                                 <div class="review-avatar">${initials}</div>
                                 <div>
                                     <div class="review-name">${review.name}</div>
-                                    <div class="review-date" data-timestamp="${isDynamic ? review.date.toISOString() : ''}">${timeAgo}</div>
                                 </div>
                             </div>
                             <div class="review-stars">
@@ -528,54 +498,34 @@
                     reviewsGrid.innerHTML += card;
                 });
             }
-
-            function updateTimestamps() {
-                document.querySelectorAll('.review-date[data-timestamp]').forEach(el => {
-                    const timestamp = el.getAttribute('data-timestamp');
-                    if (timestamp) {
-                        el.textContent = formatTimeAgo(timestamp);
-                    }
-                });
-            }
             
             renderReviews();
-            setInterval(updateTimestamps, 30000); // Update every 30 seconds
 
             // --- New Review Form Logic ---
+            const newReviewForm = document.getElementById('newReviewForm');
+            const moderationMessage = document.getElementById('moderationMessage');
             const stars = document.querySelectorAll('#newStarRating i');
             let selectedRating = 0;
 
             stars.forEach(star => {
                 star.addEventListener('mouseover', () => {
-                    const value = star.dataset.value;
-                    stars.forEach(s => {
-                        s.classList.toggle('hover', s.dataset.value <= value);
-                        s.classList.remove('far');
-                        s.classList.add('fas');
+                    const value = parseInt(star.dataset.value);
+                    stars.forEach((s, i) => {
+                        s.className = i < value ? 'fas fa-star hover' : 'far fa-star hover';
                     });
                 });
 
                 star.addEventListener('mouseout', () => {
-                    stars.forEach(s => {
+                    stars.forEach((s, i) => {
+                        s.className = i < selectedRating ? 'fas fa-star active' : 'far fa-star';
                         s.classList.remove('hover');
-                        if (s.dataset.value > selectedRating) {
-                           s.classList.remove('fas');
-                           s.classList.add('far');
-                        }
                     });
                 });
 
                 star.addEventListener('click', () => {
-                    selectedRating = star.dataset.value;
-                    stars.forEach(s => {
-                        s.classList.toggle('active', s.dataset.value <= selectedRating);
-                         if (s.dataset.value <= selectedRating) {
-                           s.classList.add('fas');
-                           s.classList.remove('far');
-                        } else {
-                           s.classList.add('far');
-                           s.classList.remove('fas');
-                        }
+                    selectedRating = parseInt(star.dataset.value);
+                    stars.forEach((s, i) => {
+                        s.className = i < selectedRating ? 'fas fa-star active' : 'far fa-star';
                     });
                 });
             });
@@ -590,11 +540,9 @@
                     return;
                 }
 
-                // Hide form, show message
                 newReviewForm.style.display = 'none';
                 moderationMessage.style.display = 'block';
 
-                // NOTE: In a real application, you would send this data to your server here.
                 console.log({
                     name: name,
                     loanAmount: document.getElementById('reviewLoanAmount').value,
