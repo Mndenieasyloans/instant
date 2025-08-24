@@ -15,6 +15,7 @@
             --light-text: #4a5568;
             --white: #ffffff;
             --border-color: #e2e8f0;
+            --success-green: #2f855a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -231,24 +232,40 @@
         .review-footer i { margin-right: 5px; }
         .loan-amount { font-weight: 700; }
 
-        .cta-section {
-            background-color: var(--primary-green);
+        /* --- NEW REVIEW SUBMISSION FORM --- */
+        .review-submission-section { background-color: var(--white); }
+        .review-submission-card {
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .review-submission-card h2 { text-align: center; color: var(--primary-green); margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .form-group textarea { height: 120px; resize: vertical; }
+        .star-rating-input { display: flex; gap: 10px; font-size: 2rem; color: #d1d5db; cursor: pointer; }
+        .star-rating-input i:hover, .star-rating-input i.hover, .star-rating-input i.active { color: var(--secondary-gold); }
+        .btn-green { background: var(--primary-green); color: var(--white); padding: 12px 30px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; width: 100%; font-size: 1.1rem; }
+        
+        #moderationMessage {
+            display: none;
+            background-color: var(--success-green);
             color: var(--white);
-        }
-        .cta-box {
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            padding: 50px;
         }
-        .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .cta-box p { margin-bottom: 2rem; opacity: 0.9; }
-        .btn-gold {
-            background-color: var(--secondary-gold);
-            color: var(--primary-green);
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-        }
+        #moderationMessage i { margin-right: 10px; }
 
         footer { background-color: var(--dark-text); color: var(--white); padding: 60px 5% 20px; }
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid var(--light-text); font-size: 0.9rem; }
@@ -295,13 +312,13 @@
     <main>
         <section class="page-header">
             <h1>Hear from Our Mndeni</h1>
-            <p>Real stories from South Africans we've proudly supported on their journey.</p>
+            <p>Real stories from South Africans we've proudly supported on their financial journeys.</p>
             <div class="rating-summary">
                 <div class="score">Excellent 4.9</div>
                 <div class="stars">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                 </div>
-                <div class="score">based on 60+ reviews</div>
+                <div class="score">based on 70+ reviews</div>
             </div>
         </section>
 
@@ -313,12 +330,38 @@
             </div>
         </section>
 
-        <section class="section cta-section">
+        <section class="section review-submission-section">
             <div class="container">
-                <div class="cta-box">
-                    <h2>Ready to Write Your Own Success Story?</h2>
-                    <p>Join thousands of satisfied South Africans. Start your simple, fast, and transparent loan application today.</p>
-                    <a href="apply.html" class="btn-gold">Apply Now</a>
+                <div class="review-submission-card">
+                    <div id="moderationMessage">
+                        <p><i class="fas fa-check-circle"></i> Thank you! Your review has been sent for moderation.</p>
+                    </div>
+                    <form id="newReviewForm">
+                        <h2>Share Your Experience</h2>
+                        <div class="form-group">
+                            <label for="reviewerName">Your Full Name</label>
+                            <input type="text" id="reviewerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewLoanAmount">Loan Amount (e.g., R50,000)</label>
+                            <input type="text" id="reviewLoanAmount" required>
+                        </div>
+                         <div class="form-group">
+                            <label>Your Rating</label>
+                            <div class="star-rating-input" id="newStarRating">
+                                <i class="far fa-star" data-value="1"></i>
+                                <i class="far fa-star" data-value="2"></i>
+                                <i class="far fa-star" data-value="3"></i>
+                                <i class="far fa-star" data-value="4"></i>
+                                <i class="far fa-star" data-value="5"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">Your Review</label>
+                            <textarea id="reviewText" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-green">Submit My Review</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -335,129 +378,141 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Script ---
             const mobileMenuOpenBtn = document.getElementById('mobileMenuOpen');
             const mobileMenuCloseBtn = document.getElementById('mobileMenuClose');
             const mobileNav = document.getElementById('mobileNav');
 
             if (mobileMenuOpenBtn) {
-                mobileMenuOpenBtn.addEventListener('click', () => {
-                    mobileNav.classList.add('open');
-                });
+                mobileMenuOpenBtn.addEventListener('click', () => { mobileNav.classList.add('open'); });
             }
             if (mobileMenuCloseBtn) {
-                mobileMenuCloseBtn.addEventListener('click', () => {
-                    mobileNav.classList.remove('open');
-                });
+                mobileMenuCloseBtn.addEventListener('click', () => { mobileNav.classList.remove('open'); });
             }
 
-            // --- Reviews Data & Logic ---
             const now = new Date();
-
+            
+            // --- REVIEWS DATA ---
             const recentReviews = [
-                { name: "Thando Nkosi", date: new Date(now.getTime() - 5 * 60000).toISOString(), amount: 18000, text: "Absolutely incredible service! I applied during my lunch break and received a confirmation in what felt like minutes. Mndeni made a stressful situation completely manageable. I’m so impressed with the efficiency and the caring attitude of their team." },
-                { name: "Jaco Botha", date: new Date(now.getTime() - 15 * 60000).toISOString(), amount: 125000, text: "I needed a loan for my agricultural business to buy new equipment before planting season. Mndeni's process was straightforward, and they understood the urgency. The funds were available much faster than I anticipated. Highly professional." },
-                { name: "Nomvula Sithole", date: new Date(now.getTime() - 45 * 60000).toISOString(), amount: 30000, text: "I am a single mother and needed to pay for my daughter's unexpected medical expenses. The Mndeni team was so compassionate and helpful. They explained everything clearly and the repayment plan is very affordable. Thank you for being there for us." },
-                { name: "David Abrahams", date: new Date(now.getTime() - 1 * 3600000).toISOString(), amount: 55000, text: "My bakkie needed major repairs and I couldn't afford to be without it for my work. Mndeni approved my loan quickly and the process was entirely online. It was a seamless and stress-free experience from start to finish." },
-                { name: "Lindiwe Masango", date: new Date(now.getTime() - 2 * 3600000).toISOString(), amount: 88000, text: "I was looking to consolidate my store cards into one loan. Mndeni offered me a great rate and a simple plan. My finances are so much easier to manage now. The feeling of control is priceless. I highly recommend their service." },
-                { name: "Riaan Venter", date: new Date(now.getTime() - 4 * 3600000).toISOString(), amount: 210000, text: "Ek het 'n lening gekry om 'n sonkragstelsel vir my huis te installeer. Die Mndeni-span was uiters behulpsaam en die hele proses was vinniger as wat ek by enige bank sou kry. Puik diens!" },
-                { name: "Busi Mkhwanazi", date: new Date(now.getTime() - 8 * 3600000).toISOString(), amount: 12500, text: "I needed a small loan for my daughter's university registration. Even for a smaller amount, I was treated with so much respect and importance. The process was quick and I am very grateful for the help." },
-                { name: "Kevin Peterson", date: new Date(now.getTime() - 14 * 3600000).toISOString(), amount: 75000, text: "As a freelance designer, my income can be irregular. Mndeni understood this and worked with me to secure a personal loan for new computer equipment. Their flexibility and trust in me was a breath of fresh air." },
-                { name: "Chantelle Naidoo", date: new Date(now.getTime() - 20 * 3600000).toISOString(), amount: 450000, text: "We received a business loan to expand our family-run restaurant. The funds helped us renovate and hire more staff. Mndeni’s support has been instrumental in our growth this year. The process was thorough but fair." },
-                { name: "Pieter Bothma", date: new Date(now.getTime() - 24 * 3600000).toISOString(), amount: 1200000, text: "Securing a significant loan for property investment was a big step. The team at Mndeni was knowledgeable, professional, and transparent through the entire process. They offered competitive terms and I felt confident in my decision." }
+                { name: "Jabulani Mthembu", date: new Date(now.getTime() - 3 * 60000), amount: 2500000, text: "Expanding my transport business felt like an impossible dream. Mndeni provided a R2.5 million loan with terms that made sense for my cash flow. The process was professional, and their team truly partners with you. My fleet has doubled, and my business is soaring." },
+                { name: "Anel Botha", date: new Date(now.getTime() - 12 * 60000), amount: 450000, text: "Ek moes my huis aanpas vir my bejaarde ouers. Die R450,000 lening het dit moontlik gemaak om alles rolstoelvriendelik te maak. Mndeni se deernis en spoedige diens het 'n moeilike tyd soveel makliker gemaak. Hulle is regtig mense-mense." },
+                { name: "Zanele Williams", date: new Date(now.getTime() - 25 * 60000), amount: 800000, text: "Securing a R800,000 loan to buy into a franchise was the best decision for my career. The Mndeni business team guided me through every step, ensuring I understood the commitment. I am now a proud business owner, thanks to their support." },
+                { name: "Thabo Pienaar", date: new Date(now.getTime() - 1 * 3600000), amount: 1200000, text: "Our community farming project needed urgent funding for a borehole and irrigation system. Mndeni approved our R1.2 million loan, understanding the importance of food security. They are investing in communities, not just individuals." },
+                { name: "Siobhan Reddy", date: new Date(now.getTime() - 2 * 3600000), amount: 1950000, text: "As a doctor opening my own practice, I needed significant capital. Mndeni provided a R1,950,000 loan with a structured plan that aligned with my projected income. Their professional financial advice was invaluable." },
+                { name: "Chris van Jaarsveld", date: new Date(now.getTime() - 3 * 3600000), amount: 3000000, text: "Purchasing a small commercial property was a huge step. Mndeni handled my R3 million application with incredible expertise. Their commercial loan division is world-class. I felt supported and confident throughout the entire process." },
+                { name: "Lindiwe Khumalo", date: new Date(now.getTime() - 5 * 3600000), amount: 75000, text: "I needed to cover the costs for my son's international sports tour. The R75,000 personal loan was approved so quickly, we didn't miss any deadlines. Mndeni really came through for our family." },
+                { name: "David Nkosi", date: new Date(now.getTime() - 8 * 3600000), amount: 120000, text: "My daughter’s wedding was approaching, and we needed extra funds. The R120,000 loan from Mndeni was a blessing. The process was fast, simple, and allowed us to give her the beautiful day she deserved without any financial worries." },
+                { name: "Marius Botha", date: new Date(now.getTime() - 15 * 3600000), amount: 45000, text: "Ons het 'n klein lening van R45,000 nodig gehad vir onverwagte herstelwerk aan ons huis. Die aanlyn proses was so gerieflik en die geld was binne 24 uur in ons rekening. Ek is baie beïndruk met Mndeni se doeltreffendheid." },
+                { name: "Lethabo Maake", date: new Date(now.getTime() - 22 * 3600000), amount: 25000, text: "I'm a student who needed to replace a stolen laptop urgently for my studies. Mndeni's process was quick and they offered a plan I could manage. Their understanding of my situation was amazing. It’s more than just a loan." },
             ];
 
             const olderReviews = [
-                { name: "Sipho Khumalo", date: "3 weeks ago", amount: 25000, text: "I was in a real bind and needed cash quickly for an emergency. The team at Mndeni was incredibly understanding and processed my application faster than I ever expected. The money was in my account the very next morning. Truly a lifesaver!" },
-                { name: "Anneri van der Merwe", date: "1 month ago", amount: 150000, text: "Ek moes my huis se dak regmaak voor die reën begin. Mndeni het die hele proses so maklik gemaak. Geen versteekte fooie nie en die konsultant was baie professioneel en het alles duidelik verduidelik. Baie dankie vir die uitstekende diens!" },
-                { name: "John Smith", date: "1 month ago", amount: 500000, text: "Starting my own coffee shop was a lifelong dream. While banks were hesitant, Mndeni saw the potential in my business plan. Their start-up loan gave me the capital I needed to get going. I'm forever grateful for their belief in me." },
-                { name: "Lerato Moloi", date: "2 months ago", amount: 15000, text: "I needed a small loan to cover my son's school fees and books for the year. The application was simple, all done online, and the repayments are very affordable. It’s a huge weight off my shoulders." },
-                { name: "Francois Pienaar", date: "2 months ago", amount: 80000, text: "I had debt from a few different places, and the interest was crippling me. Mndeni helped me consolidate everything into one loan with a much better interest rate. I can finally breathe again and manage my finances properly." },
-                { name: "Naledi Ntuli", date: "3 months ago", amount: 35000, text: "My car broke down unexpectedly, and I needed it for work. The speed and efficiency of Mndeni Easy Loans were incredible. I was back on the road in two days. The service was friendly and compassionate." },
-                { name: "Chris Botha", date: "3 months ago", amount: 250000, text: "We wanted to renovate our kitchen, and Mndeni provided the perfect home improvement loan. The terms were great, and the process was much simpler than dealing with big banks. Our family is enjoying our beautiful new space." },
-                { name: "Thabo Mbeki", date: "4 months ago", amount: 45000, text: "Excellent customer service from start to finish. They keep you informed every step of the way. It really feels like you are dealing with people who care, not just a faceless company." },
-                { name: "Liezel Jansen", date: "4 months ago", amount: 120000, text: "As a freelancer, getting a loan can be tough. Mndeni understood my income structure and worked with me to find a solution. I was so impressed with their flexible and modern approach to lending." },
-                { name: "Khaya Sibanda", date: "4 months ago", amount: 6500000, text: "Securing a large business loan for expansion felt like a monumental task, but Mndeni's commercial team made it manageable. They were thorough, professional, and secured the funding we needed to scale our operations. A truly five-star experience." },
-                { name: "Jan Hendrick", date: "5 months ago", amount: 18000, text: "I just needed a small amount to get me through to my next paycheck after an unexpected expense. The process was discreet, fast, and exactly what I needed without any fuss. Highly recommended." },
-                { name: "Zinhle Dlamini", date: "5 months ago", amount: 95000, text: "I used the loan to pay for a coding bootcamp that has changed my career. Mndeni invested in my future, and I couldn't be more thankful for the opportunity their financial support provided." },
-                { name: "Gideon Louw", date: "6 months ago", amount: 125000, text: "Die diens was vinnig en professioneel. Ek het die lening gebruik om my studielenings te konsolideer. Dit het my finansiële lewe soveel eenvoudiger gemaak. Ek sal Mndeni vir enige iemand aanbeveel." },
-                { name: "Bongiwe Mkhize", date: "6 months ago", amount: 22000, text: "The consultants are so friendly and patient. They answered all my questions and made sure I was comfortable with the terms before I signed anything. It feels good to be treated with respect." },
-                { name: "David Miller", date: "7 months ago", amount: 300000, text: "I needed to purchase new equipment for my photography business. The loan I received from Mndeni was approved quickly and had a very competitive rate. My business is now more productive than ever." },
-                { name: "Anelisa Qaba", date: "7 months ago", amount: 55000, text: "Mndeni helped me finance my dream wedding. They took the financial stress out of our special day. The application was easy and the payout was right on time. We are so grateful." },
-                { name: "Ruan de Villiers", date: "8 months ago", amount: 480000, text: "Buying my first bakkie was a big step. Mndeni's vehicle finance option was straightforward and the monthly payments fit my budget perfectly. I was impressed by how transparent they were about all the costs." },
-                { name: "Fatimah Omar", date: "8 months ago", amount: 75000, text: "I had to cover some unexpected medical bills for my mother. The team at Mndeni was so compassionate and made sure the funds were available urgently. Their kindness during a difficult time meant the world to me." },
-                { name: "Pieter Kruger", date: "9 months ago", amount: 180000, text: "The online platform is excellent and easy to use. I completed my entire application from my phone and got feedback the same day. This is how lending should be in the 21st century." },
-                { name: "Nosipho Ngcobo", date: "9 months ago", amount: 32000, text: "As a young graduate starting my first job, I needed help with a rental deposit. Mndeni offered me a small personal loan that was perfect for my situation. They made me feel valued as a customer." },
-                { name: "Stephanus Coetzee", date: "9 months ago", amount: 220000, text: "Ons het ons plaas se besproeiingstelsel opgegradeer met 'n lening van Mndeni. Hulle het ons unieke landboubehoeftes verstaan en 'n pasgemaakte oplossing gebied. Wonderlike mense om mee te werk." },
-                { name: "Michelle Pillay", date: "10 months ago", amount: 12000, text: "A quick, no-fuss loan to fix my geyser. It saved me so much trouble. The interest rate was very reasonable for a short-term loan." },
-                { name: "Lethabo Mokoena", date: "10 months ago", amount: 60000, text: "I used my loan to invest in solar panels for my home during loadshedding. It was a smart financial move made possible by Mndeni's quick and efficient service. I’m already saving on electricity!" },
-                { name: "Charlize Theron", date: "11 months ago", amount: 1200000, text: "I've dealt with many financial institutions for my business, and Mndeni stands out for its personal touch and efficiency. They handled my application for a working capital loan with professionalism and speed." },
-                { name: "Hendrik van Wyk", date: "11 months ago", amount: 28000, text: "Simple, honest, and fast. That's Mndeni for you. I needed some cash for home repairs, and they delivered exactly as promised. Geen probleme nie." },
-                { name: "Themba Johnson", date: "1 year ago", amount: 4000000, text: "Our construction company needed a significant loan for a new project tender. Mndeni's business finance team was exceptional, providing the support and funding necessary to secure the contract. They are a vital partner to our growth." },
-                { name: "Siyabonga Radebe", date: "1 year ago", amount: 19000, text: "I’m grateful for the support. The process was dignified and respectful, and helped me manage a tough month. They truly live up to their name." },
-                { name: "Elize Steyn", date: "1 year ago", amount: 110000, text: "I was drowning in credit card debt. The debt consolidation loan from Mndeni was a game-changer. My monthly payments are lower, and I have a clear path to becoming debt-free." },
-                { name: "Zola Ndlovu", date: "1 year ago", amount: 750000, text: "Financing my postgraduate studies abroad felt impossible until I spoke with Mndeni. They structured a loan that worked for me and my family. Their support has opened up a world of opportunity for me." },
-                { name: "Jaco Venter", date: "1 year ago", amount: 33000, text: "Great service. The website is easy to navigate and the application took me less than 10 minutes. I received the money the very next day. Impressive stuff." },
-                { name: "Andile Nkosi", date: "1 year ago", amount: 90000, text: "I used the loan to finally start my catering side-business. The process was so motivating and the Mndeni team gave me the confidence boost I needed. Thank you for believing in my dream!" },
-                { name: "Mariska Fourie", date: "1 year ago", amount: 160000, text: "After my accident, I needed to adapt my car. Mndeni provided the funds I needed without any hassle. Their consultant was kind and made a stressful situation much easier to handle." },
-                { name: "Precious Dube", date: "1 year ago", amount: 21000, text: "The best place for a quick, reliable loan. I’ve recommended Mndeni to all my friends and family. They are trustworthy and fair." },
-                { name: "Brendon Naidoo", date: "1 year ago", amount: 65000, text: "I needed to cover the costs of my family emigrating. Mndeni provided the short-term bridging finance we required. Their efficiency was key to our smooth transition." },
-                { name: "Tania Pretorius", date: "1 year ago", amount: 42000, text: "I am a single mom and needed help with unexpected school-related costs. The team at Mndeni was so supportive. They offered me a payment plan I could actually afford. It’s a huge relief." },
-                { name: "Mandla Cele", date: "1 year ago", amount: 50000, text: "The service exceeded my expectations. I appreciated the clear communication and the fact that there were no surprises. A very professional and ethical company to deal with." },
-                { name: "Gerhardus Potgieter", date: "1 year ago", amount: 350000, text: "Ek het 'n lening gebruik om my klassieke motor te restoureer. Die proses was glad en die rentekoers was baie billik. Mndeni verstaan hulle kliënte se passies." },
-                { name: "Ayanda Tshabalala", date: "1 year ago", amount: 130000, text: "I was able to pay for my father's surgery thanks to Mndeni. They acted with urgency and compassion, and I can't thank them enough for their support during a very difficult time for my family." },
-                { name: "Wayne O'Connor", date: "1 year ago", amount: 280000, text: "We took out a loan for our wedding, and it was the best decision we made. It allowed us to have the day of our dreams without financial stress. Mndeni's process was simple and fast." },
-                { name: "Zandile Mthembu", date: "1 year ago", amount: 10000, text: "Just a small loan to fix my laptop for my studies. Even though it was a small amount, I was treated with the same importance and professionalism. Great service!" },
-                { name: "Cornelius Uys", date: "1 year ago", amount: 950000, text: "Our agricultural business needed to purchase new equipment. Mndeni offered a fantastic business loan with terms that suit our seasonal income. They are a great partner for farmers." },
-                { name: "Nomvula Gwala", date: "1 year ago", amount: 60000, text: "Taking a course to upskill myself was made possible by Mndeni. The loan process was clear and the consultants were encouraging. It's an investment in my future that I'm so glad I made." },
-                { name: "Liam Wilson", date: "1 year ago", amount: 200000, text: "I used the loan to put a down payment on my first property. The speed of the approval from Mndeni meant I didn't lose out on the house I wanted. Excellent, efficient service." },
-                { name: "Heidi Scholtz", date: "1 year ago", amount: 40000, text: "The entire process, from application to receiving the funds, was incredibly smooth. I am very impressed and will definitely use their services again if the need arises." },
-                { name: "Bongani Mahlangu", date: "1 year ago", amount: 7000000, text: "As a property developer, securing funding is crucial. Mndeni’s commercial loan division understood the complexities of my project and provided a R7 million facility that was instrumental to our success. Their expertise is top-tier." },
-                { name: "Chantal du Plessis", date: "1 year ago", amount: 17000, text: "I needed a small amount for vet bills for my dog. The process was so quick and stress-free. It’s wonderful to know there's a reliable service like Mndeni available." },
-                { name: "Thato Letsoalo", date: "1 year ago", amount: 140000, text: "I consolidated my student loans and some store cards. Now I have one single payment that is easy to manage. The relief is immense. Thank you to the Mndeni team for your guidance." },
-                { name: "Jacques Kallis", date: "1 year ago", amount: 375000, text: "Used the loan to build a lapa and pool area at our home. The family loves it. The process with Mndeni was seamless and much faster than I expected. Great experience all around." },
-                { name: "Refilwe Modise", date: "1 year ago", amount: 85000, text: "My guesthouse needed urgent plumbing repairs before the holiday season. Mndeni provided a quick business loan that saved us from disaster. Their speed and understanding were phenomenal." },
-                { name: "Dirk van Zyl", date: "1 year ago", amount: 24000, text: "A straightforward, honest loan provider. No frills, just efficient service. Got the money I needed for car repairs without any hassle. Would recommend." }
+                { name: "Sipho Khumalo", amount: 25000, text: "I was in a real bind and needed cash quickly for an emergency. The team at Mndeni was incredibly understanding and processed my application faster than I ever expected. The money was in my account the very next morning. Truly a lifesaver!" },
+                { name: "Anneri van der Merwe", amount: 150000, text: "Ek moes my huis se dak regmaak voor die reën begin. Mndeni het die hele proses so maklik gemaak. Geen versteekte fooie nie en die konsultant was baie professioneel en het alles duidelik verduidelik. Baie dankie vir die uitstekende diens!" },
+                { name: "John Smith", amount: 500000, text: "Starting my own coffee shop was a lifelong dream. While banks were hesitant, Mndeni saw the potential in my business plan. Their start-up loan gave me the capital I needed to get going. I'm forever grateful for their belief in me." },
+                { name: "Lerato Moloi", amount: 15000, text: "I needed a small loan to cover my son's school fees and books for the year. The application was simple, all done online, and the repayments are very affordable. It’s a huge weight off my shoulders." },
+                { name: "Francois Pienaar", amount: 80000, text: "I had debt from a few different places, and the interest was crippling me. Mndeni helped me consolidate everything into one loan with a much better interest rate. I can finally breathe again and manage my finances properly." },
+                { name: "Naledi Ntuli", amount: 35000, text: "My car broke down unexpectedly, and I needed it for work. The speed and efficiency of Mndeni Easy Loans were incredible. I was back on the road in two days. The service was friendly and compassionate." },
+                { name: "Chris Botha", amount: 250000, text: "We wanted to renovate our kitchen, and Mndeni provided the perfect home improvement loan. The terms were great, and the process was much simpler than dealing with big banks. Our family is enjoying our beautiful new space." },
+                { name: "Thabo Mbeki", amount: 45000, text: "Excellent customer service from start to finish. They keep you informed every step of the way. It really feels like you are dealing with people who care, not just a faceless company." },
+                { name: "Liezel Jansen", amount: 120000, text: "As a freelancer, getting a loan can be tough. Mndeni understood my income structure and worked with me to find a solution. I was so impressed with their flexible and modern approach to lending." },
+                { name: "Khaya Sibanda", amount: 6500000, text: "Securing a large business loan for expansion felt like a monumental task, but Mndeni's commercial team made it manageable. They were thorough, professional, and secured the funding we needed to scale our operations. A truly five-star experience." },
+                { name: "Jan Hendrick", amount: 18000, text: "I just needed a small amount to get me through to my next paycheck after an unexpected expense. The process was discreet, fast, and exactly what I needed without any fuss. Highly recommended." },
+                { name: "Zinhle Dlamini", amount: 95000, text: "I used the loan to pay for a coding bootcamp that has changed my career. Mndeni invested in my future, and I couldn't be more thankful for the opportunity their financial support provided." },
+                { name: "Gideon Louw", amount: 125000, text: "Die diens was vinnig en professioneel. Ek het die lening gebruik om my studielenings te konsolideer. Dit het my finansiële lewe soveel eenvoudiger gemaak. Ek sal Mndeni vir enige iemand aanbeveel." },
+                { name: "Bongiwe Mkhize", amount: 22000, text: "The consultants are so friendly and patient. They answered all my questions and made sure I was comfortable with the terms before I signed anything. It feels good to be treated with respect." },
+                { name: "David Miller", amount: 300000, text: "I needed to purchase new equipment for my photography business. The loan I received from Mndeni was approved quickly and had a very competitive rate. My business is now more productive than ever." },
+                { name: "Anelisa Qaba", amount: 55000, text: "Mndeni helped me finance my dream wedding. They took the financial stress out of our special day. The application was easy and the payout was right on time. We are so grateful." },
+                { name: "Ruan de Villiers", amount: 480000, text: "Buying my first bakkie was a big step. Mndeni's vehicle finance option was straightforward and the monthly payments fit my budget perfectly. I was impressed by how transparent they were about all the costs." },
+                { name: "Fatimah Omar", amount: 75000, text: "I had to cover some unexpected medical bills for my mother. The team at Mndeni was so compassionate and made sure the funds were available urgently. Their kindness during a difficult time meant the world to me." },
+                { name: "Pieter Kruger", amount: 180000, text: "The online platform is excellent and easy to use. I completed my entire application from my phone and got feedback the same day. This is how lending should be in the 21st century." },
+                { name: "Nosipho Ngcobo", amount: 32000, text: "As a young graduate starting my first job, I needed help with a rental deposit. Mndeni offered me a small personal loan that was perfect for my situation. They made me feel valued as a customer." },
+                { name: "Stephanus Coetzee", amount: 220000, text: "Ons het ons plaas se besproeiingstelsel opgegradeer met 'n lening van Mndeni. Hulle het ons unieke landboubehoeftes verstaan en 'n pasgemaakte oplossing gebied. Wonderlike mense om mee te werk." },
+                { name: "Michelle Pillay", amount: 12000, text: "A quick, no-fuss loan to fix my geyser. It saved me so much trouble. The interest rate was very reasonable for a short-term loan." },
+                { name: "Lethabo Mokoena", amount: 60000, text: "I used my loan to invest in solar panels for my home during loadshedding. It was a smart financial move made possible by Mndeni's quick and efficient service. I’m already saving on electricity!" },
+                { name: "Charlize Theron", amount: 1200000, text: "I've dealt with many financial institutions for my business, and Mndeni stands out for its personal touch and efficiency. They handled my application for a working capital loan with professionalism and speed." },
+                { name: "Hendrik van Wyk", amount: 28000, text: "Simple, honest, and fast. That's Mndeni for you. I needed some cash for home repairs, and they delivered exactly as promised. Geen probleme nie." },
+                { name: "Themba Johnson", amount: 4000000, text: "Our construction company needed a significant loan for a new project tender. Mndeni's business finance team was exceptional, providing the support and funding necessary to secure the contract. They are a vital partner to our growth." },
+                { name: "Siyabonga Radebe", amount: 19000, text: "I’m grateful for the support. The process was dignified and respectful, and helped me manage a tough month. They truly live up to their name." },
+                { name: "Elize Steyn", amount: 110000, text: "I was drowning in credit card debt. The debt consolidation loan from Mndeni was a game-changer. My monthly payments are lower, and I have a clear path to becoming debt-free." },
+                { name: "Zola Ndlovu", amount: 750000, text: "Financing my postgraduate studies abroad felt impossible until I spoke with Mndeni. They structured a loan that worked for me and my family. Their support has opened up a world of opportunity for me." },
+                { name: "Jaco Venter", amount: 33000, text: "Great service. The website is easy to navigate and the application took me less than 10 minutes. I received the money the very next day. Impressive stuff." },
+                { name: "Andile Nkosi", amount: 90000, text: "I used the loan to finally start my catering side-business. The process was so motivating and the Mndeni team gave me the confidence boost I needed. Thank you for believing in my dream!" },
+                { name: "Mariska Fourie", amount: 160000, text: "After my accident, I needed to adapt my car. Mndeni provided the funds I needed without any hassle. Their consultant was kind and made a stressful situation much easier to handle." },
+                { name: "Precious Dube", amount: 21000, text: "The best place for a quick, reliable loan. I’ve recommended Mndeni to all my friends and family. They are trustworthy and fair." },
+                { name: "Brendon Naidoo", amount: 65000, text: "I needed to cover the costs of my family emigrating. Mndeni provided the short-term bridging finance we required. Their efficiency was key to our smooth transition." },
+                { name: "Tania Pretorius", amount: 42000, text: "I am a single mom and needed help with unexpected school-related costs. The team at Mndeni was so supportive. They offered me a payment plan I could actually afford. It’s a huge relief." },
+                { name: "Mandla Cele", amount: 50000, text: "The service exceeded my expectations. I appreciated the clear communication and the fact that there were no surprises. A very professional and ethical company to deal with." },
+                { name: "Gerhardus Potgieter", amount: 350000, text: "Ek het 'n lening gebruik om my klassieke motor te restoureer. Die proses was glad en die rentekoers was baie billik. Mndeni verstaan hulle kliënte se passies." },
+                { name: "Ayanda Tshabalala", amount: 130000, text: "I was able to pay for my father's surgery thanks to Mndeni. They acted with urgency and compassion, and I can't thank them enough for their support during a very difficult time for my family." },
+                { name: "Wayne O'Connor", amount: 280000, text: "We took out a loan for our wedding, and it was the best decision we made. It allowed us to have the day of our dreams without financial stress. Mndeni's process was simple and fast." },
+                { name: "Zandile Mthembu", amount: 10000, text: "Just a small loan to fix my laptop for my studies. Even though it was a small amount, I was treated with the same importance and professionalism. Great service!" },
+                { name: "Cornelius Uys", amount: 950000, text: "Our agricultural business needed to purchase new equipment. Mndeni offered a fantastic business loan with terms that suit our seasonal income. They are a great partner for farmers." },
+                { name: "Nomvula Gwala", amount: 60000, text: "Taking a course to upskill myself was made possible by Mndeni. The loan process was clear and the consultants were encouraging. It's an investment in my future that I'm so glad I made." },
+                { name: "Liam Wilson", amount: 200000, text: "I used the loan to put a down payment on my first property. The speed of the approval from Mndeni meant I didn't lose out on the house I wanted. Excellent, efficient service." },
+                { name: "Heidi Scholtz", amount: 40000, text: "The entire process, from application to receiving the funds, was incredibly smooth. I am very impressed and will definitely use their services again if the need arises." },
+                { name: "Bongani Mahlangu", amount: 7000000, text: "As a property developer, securing funding is crucial. Mndeni’s commercial loan division understood the complexities of my project and provided a R7 million facility that was instrumental to our success. Their expertise is top-tier." },
+                { name: "Chantal du Plessis", amount: 17000, text: "I needed a small amount for vet bills for my dog. The process was so quick and stress-free. It’s wonderful to know there's a reliable service like Mndeni available." },
+                { name: "Thato Letsoalo", amount: 140000, text: "I consolidated my student loans and some store cards. Now I have one single payment that is easy to manage. The relief is immense. Thank you to the Mndeni team for your guidance." },
+                { name: "Jacques Kallis", amount: 375000, text: "Used the loan to build a lapa and pool area at our home. The family loves it. The process with Mndeni was seamless and much faster than I expected. Great experience all around." },
+                { name: "Refilwe Modise", amount: 85000, text: "My guesthouse needed urgent plumbing repairs before the holiday season. Mndeni provided a quick business loan that saved us from disaster. Their speed and understanding were phenomenal." },
+                { name: "Dirk van Zyl", amount: 24000, text: "A straightforward, honest loan provider. No frills, just efficient service. Got the money I needed for car repairs without any hassle. Would recommend." }
             ];
 
-            const allReviews = [...recentReviews, ...olderReviews];
             const reviewsGrid = document.querySelector('.reviews-grid');
+            const newReviewForm = document.getElementById('newReviewForm');
+            const moderationMessage = document.getElementById('moderationMessage');
 
+            // --- Daily Shuffle Logic ---
+            function shuffleArray(array, seed) {
+                let m = array.length, t, i;
+                const random = () => {
+                    var x = Math.sin(seed++) * 10000;
+                    return x - Math.floor(x);
+                };
+                while (m) {
+                    i = Math.floor(random() * m--);
+                    t = array[m];
+                    array[m] = array[i];
+                    array[i] = t;
+                }
+                return array;
+            }
+
+            const today = new Date();
+            const dailySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            const shuffledOlderReviews = shuffleArray(olderReviews, dailySeed);
+            const allReviews = [...recentReviews, ...shuffledOlderReviews];
+
+            // --- Time Formatting and Rendering Logic ---
             function formatTimeAgo(dateString) {
-                if (!dateString) return '';
                 const date = new Date(dateString);
                 const now = new Date();
                 const seconds = Math.round((now - date) / 1000);
-                
                 const minutes = Math.round(seconds / 60);
                 const hours = Math.round(minutes / 60);
-                const days = Math.round(hours / 24);
 
-                if (seconds < 60) {
-                    return `just now`;
-                } else if (minutes < 60) {
-                    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-                } else if (hours < 24) {
-                    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-                } else {
-                    return `${days} day${days > 1 ? 's' : ''} ago`;
-                }
+                if (seconds < 60) return `just now`;
+                if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                // Fallback for older static dates
+                return dateString;
             }
             
             function renderReviews() {
-                reviewsGrid.innerHTML = ''; // Clear existing reviews
+                reviewsGrid.innerHTML = ''; 
                 allReviews.forEach(review => {
-                    const initial = review.name.split(' ').map(n => n[0]).join('');
-                    const isDynamic = review.date.includes('T'); // Check if it's an ISO string
-                    const timeAgo = isDynamic ? formatTimeAgo(review.date) : review.date;
+                    const initials = review.name.split(' ').map(n => n[0]).join('');
+                    // Check if date is a string with 'ago' or an ISO date string
+                    const isDynamic = review.date && typeof review.date === 'object';
+                    const timeAgo = isDynamic ? formatTimeAgo(review.date.toISOString()) : (review.date || 'Recently');
                     
                     const card = `
                         <div class="review-card">
                             <div class="review-header">
-                                <div class="review-avatar">${initial}</div>
+                                <div class="review-avatar">${initials}</div>
                                 <div>
                                     <div class="review-name">${review.name}</div>
-                                    <div class="review-date dynamic-time" data-timestamp="${isDynamic ? review.date : ''}">${timeAgo}</div>
+                                    <div class="review-date" data-timestamp="${isDynamic ? review.date.toISOString() : ''}">${timeAgo}</div>
                                 </div>
                             </div>
                             <div class="review-stars">
@@ -475,8 +530,7 @@
             }
 
             function updateTimestamps() {
-                const timeElements = document.querySelectorAll('.dynamic-time');
-                timeElements.forEach(el => {
+                document.querySelectorAll('.review-date[data-timestamp]').forEach(el => {
                     const timestamp = el.getAttribute('data-timestamp');
                     if (timestamp) {
                         el.textContent = formatTimeAgo(timestamp);
@@ -484,8 +538,70 @@
                 });
             }
             
-            renderReviews(); // Initial render
-            setInterval(updateTimestamps, 60000); // Update every minute
+            renderReviews();
+            setInterval(updateTimestamps, 30000); // Update every 30 seconds
+
+            // --- New Review Form Logic ---
+            const stars = document.querySelectorAll('#newStarRating i');
+            let selectedRating = 0;
+
+            stars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    const value = star.dataset.value;
+                    stars.forEach(s => {
+                        s.classList.toggle('hover', s.dataset.value <= value);
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    });
+                });
+
+                star.addEventListener('mouseout', () => {
+                    stars.forEach(s => {
+                        s.classList.remove('hover');
+                        if (s.dataset.value > selectedRating) {
+                           s.classList.remove('fas');
+                           s.classList.add('far');
+                        }
+                    });
+                });
+
+                star.addEventListener('click', () => {
+                    selectedRating = star.dataset.value;
+                    stars.forEach(s => {
+                        s.classList.toggle('active', s.dataset.value <= selectedRating);
+                         if (s.dataset.value <= selectedRating) {
+                           s.classList.add('fas');
+                           s.classList.remove('far');
+                        } else {
+                           s.classList.add('far');
+                           s.classList.remove('fas');
+                        }
+                    });
+                });
+            });
+
+            newReviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('reviewerName').value;
+                const reviewText = document.getElementById('reviewText').value;
+
+                if (!name.trim() || !reviewText.trim() || selectedRating === 0) {
+                    alert('Please fill in all fields and select a rating.');
+                    return;
+                }
+
+                // Hide form, show message
+                newReviewForm.style.display = 'none';
+                moderationMessage.style.display = 'block';
+
+                // NOTE: In a real application, you would send this data to your server here.
+                console.log({
+                    name: name,
+                    loanAmount: document.getElementById('reviewLoanAmount').value,
+                    rating: selectedRating,
+                    review: reviewText
+                });
+            });
         });
     </script>
 
