@@ -7,6 +7,332 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+       :root {
+            --primary-green: #004d40;
+            --secondary-gold: #ffc107;
+            --light-bg: #f7f9f9;
+            --dark-text: #1a202c;
+            --light-text: #4a5568;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-text);
+        }
+
+        /* --- START: NEW HEADER & NAVIGATION STYLES --- */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-gold);
+        }
+
+        .main-nav {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .main-nav a.active {
+            color: var(--primary-green);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-apply {
+            background-color: var(--secondary-gold);
+            color: var(--primary-green);
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,193,7,0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary-green);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--primary-green);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: left 0.4s ease-in-out;
+        }
+
+        .mobile-nav.open {
+            left: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .mobile-nav ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-nav ul a {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .mobile-nav-close {
+            position: absolute;
+            top: 2rem;
+            right: 5%;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: var(--white);
+            cursor: pointer;
+        }
+        /* --- END: NEW HEADER & NAVIGATION STYLES --- */
+        
+        .page-header {
+            background-image: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 77, 64, 0.8)), url('https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .section {
+            padding: 80px 5%;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .about-text p {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .mission-vision {
+            background-color: var(--light-bg);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border-top: 4px solid var(--secondary-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        
+        .value-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .value-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .value-card p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .team-section {
+             background-color: var(--white);
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .team-card {
+            text-align: center;
+        }
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-gold);
+            margin-bottom: 1rem;
+        }
+        .team-card h4 { font-size: 1.2rem; }
+        .team-card span { color: var(--light-text); font-style: italic; }
+
+        .legal-info {
+            text-align: center;
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+        }
+        .legal-info h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .legal-info p { opacity: 0.9; }
+        .legal-info strong { color: var(--secondary-gold); }
+
+        .cta-section {
+            background-color: var(--light-bg);
+        }
+        .cta-box {
+            text-align: center;
+            padding: 50px;
+        }
+        .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .btn-gold { background-color: var(--secondary-gold); color: var(--primary-green); }
+
+        footer {
+            background-color: var(--dark-text);
+            color: var(--white);
+            padding: 60px 5% 20px;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-nav, .header-actions .btn-apply {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                order: -1;
+            }
+        }
         :root {
             --primary-green: #004d40;
             --secondary-gold: #ffc107;
@@ -137,7 +463,7 @@
 </head>
 <body>
 
-   <header>
+      <header>
         <a href="index.html" class="logo">Mndeni<span>.</span></a>
         <nav>
             <ul class="main-nav">
@@ -168,6 +494,8 @@
 
         </ul>
     </div>
+
+   
     <main>
         <section class="page-header">
             <h1>We're Here For Your Family</h1>
@@ -192,7 +520,7 @@
                         <div class="icon"><i class="fas fa-envelope-open-text"></i></div>
                         <h3>Send an Email</h3>
                         <p>For applications and formal queries, please email us.</p>
-                        <a href="mailto:support@mndeniloans.co.za">support@mndeniloans.co.za</a>
+                        <a href="mailto:mndenieasyloans@aol.com">mndenieasyloans@aol.com</a>
                     </div>
                 </div>
 
